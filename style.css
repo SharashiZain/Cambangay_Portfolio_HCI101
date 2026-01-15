@@ -1,0 +1,419 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+}
+
+body {
+    background: #f3f4f8;
+    color: #111827;
+}
+
+.app-container {
+    display: flex;
+    min-height: 100vh;
+}
+
+.sidebar {
+    width: 280px;
+    background: linear-gradient(180deg, #111827, #1f2937);
+    color: #f9fafb;
+    padding: 1.5rem 1.25rem 2rem;
+    display: flex;
+    flex-direction: column;
+    position: sticky;
+    top: 0;
+    height: 100vh;
+}
+
+.profile-header {
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.avatar {
+    width: 72px;
+    height: 72px;
+    border-radius: 50%;
+    margin: 0 auto 0.75rem;
+    background: #4b5563;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    position: relative;
+    transition: transform 220ms cubic-bezier(.2,.9,.2,1), box-shadow 220ms ease;
+    will-change: transform;
+}
+
+.avatar img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 220ms cubic-bezier(.2,.9,.2,1), filter 220ms ease, opacity 220ms ease;
+}
+
+/* Pop/shift left on hover: translate left, slight scale and lift via shadow */
+.avatar:hover {
+    transform: translateX(-8px) scale(1.04) rotate(-2deg);
+    box-shadow: 0 12px 26px rgba(2,6,23,0.12);
+}
+
+/* Keep animation subtle on small screens */
+@media (max-width: 840px) {
+    .avatar:hover {
+        transform: none;
+        box-shadow: none;
+    }
+}
+.name {
+    font-size: 1.1rem;
+    font-weight: 600;
+}
+
+.student-id {
+    font-size: 0.9rem;
+    color: #9ca3af;
+}
+
+.nav {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.sidebar-bottom {
+    margin-top: auto;
+    padding-top: 1rem;
+}
+
+.settings-link {
+    display: block;
+    text-decoration: none;
+    color: #cbd5e1;
+    padding: 0.6rem 0.8rem;
+    border-radius: 0.5rem;
+    background: transparent;
+    transition: background 0.15s ease, color 0.15s ease;
+}
+
+.settings-link:hover {
+    background: #374151;
+    color: #ffffff;
+}
+
+.nav-link {
+    display: block;
+    text-decoration: none;
+    border: none;
+    background: transparent;
+    color: #e5e7eb;
+    text-align: left;
+    padding: 0.6rem 0.8rem;
+    border-radius: 0.5rem;
+    cursor: pointer;
+    font-size: 0.98rem;
+    transition: background 0.15s ease, color 0.15s ease;
+}
+
+/* Ensure visited links don't show default underline/color */
+.nav-link:link,
+.nav-link:visited {
+    text-decoration: none;
+    color: inherit;
+}
+
+.nav-link:hover {
+    background: #374151;
+}
+
+.nav-link.active {
+    background: #fbbf24;
+    color: #111827;
+}
+
+.main-content {
+    flex: 1;
+    padding: 2rem 2.5rem;
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+.section {
+    display: none;
+}
+
+.section.visible {
+    display: block;
+}
+
+.section h2 {
+    font-size: 1.6rem;
+    margin-bottom: 0.75rem;
+}
+
+.section p {
+    margin-bottom: 1rem;
+    line-height: 1.6;
+}
+
+.home-highlights {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 1rem;
+    margin-top: 1.5rem;
+}
+
+.card {
+    background: white;
+    border-radius: 0.75rem;
+    padding: 1.25rem;
+    box-shadow: 0 8px 20px rgba(15, 23, 42, 0.08);
+}
+
+.card h3 {
+    margin-bottom: 0.5rem;
+}
+
+.info-grid {
+    margin-top: 1.2rem;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 0.9rem 1.5rem;
+}
+
+.info-item {
+    background: white;
+    padding: 0.9rem 1rem;
+    border-radius: 0.7rem;
+    box-shadow: 0 4px 14px rgba(15, 23, 42, 0.05);
+}
+
+.info-item.full {
+    grid-column: 1 / -1;
+}
+
+.label {
+    display: block;
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    color: #6b7280;
+    margin-bottom: 0.15rem;
+}
+
+.value {
+    font-size: 0.98rem;
+}
+
+.section-description {
+    color: #4b5563;
+}
+
+.entry-form {
+    margin-top: 1.2rem;
+    background: white;
+    padding: 1.25rem 1.5rem;
+    border-radius: 0.9rem;
+    box-shadow: 0 8px 20px rgba(15, 23, 42, 0.08);
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 0.9rem 1.5rem;
+}
+
+.form-row {
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
+}
+
+.form-row label {
+    font-size: 0.85rem;
+    color: #4b5563;
+}
+
+input[type="text"],
+input[type="date"],
+input[type="file"],
+select,
+textarea {
+    border-radius: 0.5rem;
+    border: 1px solid #d1d5db;
+    padding: 0.5rem 0.6rem;
+    font-size: 0.95rem;
+    outline: none;
+    transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+    border-color: #f59e0b;
+    box-shadow: 0 0 0 2px rgba(245, 158, 11, 0.25);
+}
+
+textarea {
+    resize: vertical;
+}
+
+.btn-primary {
+    grid-column: 1 / -1;
+    padding: 0.6rem 1.1rem;
+    border-radius: 0.6rem;
+    border: none;
+    background: #fbbf24;
+    color: #111827;
+    font-weight: 600;
+    cursor: pointer;
+    margin-top: 0.4rem;
+    justify-self: flex-start;
+    transition: background 0.15s ease, transform 0.05s ease;
+}
+
+.btn-primary:hover {
+    background: #f59e0b;
+}
+
+.btn-primary:active {
+    transform: translateY(1px);
+}
+
+.entries-toolbar {
+    margin-top: 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.9rem;
+    color: #4b5563;
+}
+
+.entries-grid {
+    margin-top: 1rem;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 1rem;
+}
+
+.entry-card {
+    background: white;
+    border-radius: 0.8rem;
+    box-shadow: 0 8px 20px rgba(15, 23, 42, 0.08);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+}
+
+.entry-tag {
+    padding: 0.35rem 0.8rem;
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.07em;
+}
+
+.entry-tag.Activity {
+    background: #eff6ff;
+    color: #1d4ed8;
+}
+
+.entry-tag.Quiz {
+    background: #fef3c7;
+    color: #b45309;
+}
+
+.entry-tag.Seatwork {
+    background: #ecfdf3;
+    color: #15803d;
+}
+
+.entry-tag.Exam {
+    background: #fef2f2;
+    color: #b91c1c;
+}
+
+.entry-image-wrapper {
+    width: 100%;
+    max-height: 200px;
+    overflow: hidden;
+    background: #f3f4f6;
+}
+
+.entry-image-wrapper img {
+    width: 100%;
+    display: block;
+    object-fit: cover;
+}
+
+.entry-content {
+    padding: 0.9rem 1rem 1rem;
+}
+
+.entry-title {
+    font-weight: 600;
+    margin-bottom: 0.2rem;
+}
+
+.entry-date {
+    font-size: 0.8rem;
+    color: #6b7280;
+    margin-bottom: 0.4rem;
+}
+
+.entry-description {
+    font-size: 0.9rem;
+    color: #374151;
+}
+
+@media (max-width: 840px) {
+    .app-container {
+        flex-direction: column;
+    }
+
+    .sidebar {
+        width: 100%;
+        height: auto;
+        position: static;
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+        gap: 1rem;
+    }
+
+    .profile-header {
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+        text-align: left;
+        margin-bottom: 0;
+    }
+
+    .avatar {
+        margin: 0;
+    }
+
+    .nav {
+        flex-direction: row;
+    }
+
+    .main-content {
+        padding: 1.2rem 1.4rem 2rem;
+    }
+}
+
+@media (max-width: 540px) {
+    .sidebar {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .nav {
+        width: 100%;
+    }
+
+    .nav-link {
+        flex: 1;
+        text-align: center;
+    }
+}

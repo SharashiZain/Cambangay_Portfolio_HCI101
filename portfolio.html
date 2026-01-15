@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>HCI101 Portfolio - Activities & Assessments</title>
+    <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+    <div class="app-container">
+        <aside class="sidebar">
+            <div class="profile-header">
+                <div class="avatar" id="sidebarAvatar">
+                    <img id="avatarImg" alt="Avatar" />
+                    <input type="file" id="avatarInput" accept="image/*" style="display:none" />
+                </div>
+                <h1 class="name">Kahlil Jay T. Cambangay</h1>
+                <p class="student-id">ID: 24-1475</p>
+            </div>
+
+            <nav class="nav">
+                <a class="nav-link" href="index.html">Home</a>
+                <a class="nav-link" href="info.html">Personal Information</a>
+                <a class="nav-link active" href="portfolio.html">Activities & Assessments</a>
+            </nav>
+            <div class="sidebar-bottom">
+                <a class="settings-link" href="settings.html">Settings</a>
+            </div>
+        </aside>
+
+        <main class="main-content">
+            <section id="portfolioSection" class="section visible">
+                <h2>Activities & Assessments</h2>
+                <p class="section-description">
+                    Add records of your activities, quizzes, seatworks, and exams. You can attach
+                    a picture (e.g., screenshot or photo of your work) and a short description.
+                </p>
+
+                <form id="entryForm" class="entry-form">
+                    <div class="form-row">
+                        <label for="entryType">Type</label>
+                        <select id="entryType" required>
+                            <option value="">Select type</option>
+                            <option value="Activity">Activity</option>
+                            <option value="Quiz">Quiz</option>
+                            <option value="Seatwork">Seatwork</option>
+                            <option value="Exam">Exam</option>
+                        </select>
+                    </div>
+                    <div class="form-row">
+                        <label for="entryTitle">Title / Topic</label>
+                        <input type="text" id="entryTitle" placeholder="e.g. Prototype Evaluation" required />
+                    </div>
+                    <div class="form-row">
+                        <label for="entryDate">Date</label>
+                        <input type="date" id="entryDate" required />
+                    </div>
+                    <div class="form-row">
+                        <label for="entryDescription">Short Description</label>
+                        <textarea id="entryDescription" rows="3" placeholder="What is this work about?" required></textarea>
+                    </div>
+                    <div class="form-row">
+                        <label for="entryImage">Attach Picture</label>
+                        <input type="file" id="entryImage" accept="image/*" />
+                    </div>
+                    <button type="submit" class="btn-primary">Add to Portfolio</button>
+                </form>
+
+                <div class="entries-toolbar">
+                    <label for="filterType">Filter by type:</label>
+                    <select id="filterType">
+                        <option value="All">All</option>
+                        <option value="Activity">Activity</option>
+                        <option value="Quiz">Quiz</option>
+                        <option value="Seatwork">Seatwork</option>
+                        <option value="Exam">Exam</option>
+                    </select>
+                </div>
+
+                <div id="entriesContainer" class="entries-grid">
+                    <!-- Entries will be added here by JavaScript -->
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <script src="portfolio.js"></script>
+    <script src="avatar.js"></script>
+</body>
+</html>
