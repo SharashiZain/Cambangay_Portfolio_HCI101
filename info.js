@@ -21,4 +21,38 @@ function fillPersonalInfo() {
     document.getElementById("infoBio").textContent = personalInfo.bio;
 }
 
-window.addEventListener("DOMContentLoaded", fillPersonalInfo);
+function loadInfoAvatar() {
+    const AVATAR_KEY = 'hci101AvatarDataUrl';
+    const infoAvatarImg = document.getElementById('infoAvatarImg');
+    const infoAvatarContainer = document.getElementById('infoAvatar');
+    
+    if (!infoAvatarImg || !infoAvatarContainer) return;
+    
+    try {
+        const stored = localStorage.getItem(AVATAR_KEY);
+        if (stored) {
+            infoAvatarImg.src = stored;
+            infoAvatarImg.style.display = 'block';
+        } else {
+            // No stored image: show initials fallback
+            infoAvatarImg.style.display = 'none';
+            const initials = getInitials(personalInfo.name);
+            infoAvatarContainer.textContent = initials;
+            infoAvatarContainer.style.color = '#f9fafb';
+            infoAvatarContainer.style.fontWeight = '700';
+            infoAvatarContainer.style.fontSize = '3rem';
+        }
+    } catch (e) {
+        console.error('Failed to load avatar', e);
+    }
+}
+
+function getInitials(name) {
+    const parts = name.trim().split(' ');
+    return parts.slice(0, 2).map(p => p[0] ? p[0].toUpperCase() : '').join('');
+}
+
+window.addEventListener("DOMContentLoaded", () => {
+    fillPersonalInfo();
+    loadInfoAvatar();
+});
