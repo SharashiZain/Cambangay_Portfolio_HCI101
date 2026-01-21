@@ -1,4 +1,3 @@
-// settings.js
 const SETTINGS_KEY = 'hci101Settings';
 
 function loadSettings() {
@@ -41,7 +40,6 @@ function initSettingsForm() {
         alert('Settings saved locally.');
     });
 
-    // Handle avatar file selection from Settings
     if (avatarFile) {
         avatarFile.addEventListener('change', (ev) => {
             const file = ev.target.files && ev.target.files[0];
@@ -58,7 +56,7 @@ function initSettingsForm() {
                 try {
                     localStorage.setItem('hci101AvatarDataUrl', reader.result);
                     alert('Avatar uploaded and saved.');
-                    // update preview if avatar image is present in DOM
+                    
                     const avatarImg = document.getElementById('avatarImg');
                     if (avatarImg) {
                         avatarImg.src = reader.result;
@@ -89,7 +87,6 @@ function initSettingsForm() {
                     avatarImg.style.display = 'none';
                 }
                 if (container) {
-                    // show initials again
                     container.textContent = '';
                     const nameEl = document.querySelector('.profile-header .name');
                     if (nameEl) {

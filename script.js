@@ -1,4 +1,3 @@
-// Personal information data
 const personalInfo = {
     name: "Kahlil Jay T. Cambangay",
     id: "24-1475",
@@ -10,7 +9,6 @@ const personalInfo = {
     bio: "I am a more practical and serious person when it comes in developing a system."
 };
 
-// In-memory entries + localStorage key
 const STORAGE_KEY = "hci101PortfolioEntries";
 let entries = [];
 
@@ -179,7 +177,6 @@ function initFilter() {
     filterSelect.addEventListener("change", renderEntries);
 }
 
-// Initialize the app when DOM is ready
 document.addEventListener("DOMContentLoaded", () => {
     initNavigation();
     fillPersonalInfo();

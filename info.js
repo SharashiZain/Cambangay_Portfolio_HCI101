@@ -1,4 +1,3 @@
-// Personal information data for the Personal Information page
 const personalInfo = {
     name: "Kahlil Jay T. Cambangay",
     id: "24-1475",
@@ -34,7 +33,6 @@ function loadInfoAvatar() {
             infoAvatarImg.src = stored;
             infoAvatarImg.style.display = 'block';
         } else {
-            // No stored image: show initials fallback
             infoAvatarImg.style.display = 'none';
             const initials = getInitials(personalInfo.name);
             infoAvatarContainer.textContent = initials;

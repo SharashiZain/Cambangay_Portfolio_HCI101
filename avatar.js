@@ -1,21 +1,21 @@
-// avatar.js
-// Handles loading/saving the sidebar avatar image to localStorage and triggering the file picker
 const AVATAR_KEY = 'hci101AvatarDataUrl';
+const NAV_MODE_KEY = 'hci101NavMode';
 
 function initAvatar() {
+    initNavMode();
+
     const avatarImg = document.getElementById('avatarImg');
     const avatarInput = document.getElementById('avatarInput');
     const avatarContainer = document.getElementById('sidebarAvatar');
 
     if (!avatarImg || !avatarInput || !avatarContainer) return;
 
-    // Load stored avatar
+    
     try {
         const stored = localStorage.getItem(AVATAR_KEY);
         if (stored) {
             avatarImg.src = stored;
         } else {
-            // No stored image: show initials fallback by hiding the img
             avatarImg.style.display = 'none';
             avatarContainer.textContent = getInitialsFromName();
             avatarContainer.style.color = '#f9fafb';
@@ -26,7 +26,6 @@ function initAvatar() {
         console.error('Failed to load avatar', e);
     }
 
-    // Avatar is not clickable for upload; uploads are handled from the Settings page.
     avatarContainer.style.cursor = 'default';
 
     avatarInput.addEventListener('change', (ev) => {
@@ -42,7 +41,6 @@ function initAvatar() {
             }
             avatarImg.src = dataUrl;
             avatarImg.style.display = 'block';
-            // remove any text content used for initials
             if (avatarContainer.firstChild && avatarContainer.firstChild.nodeType === Node.TEXT_NODE) {
                 avatarContainer.firstChild.remove();
             }
@@ -64,3 +62,60 @@ function getInitialsFromName() {
 }
 
 window.addEventListener('DOMContentLoaded', initAvatar);
+
+function initNavMode() {
+    const mode = getNavMode();
+    applyNavMode(mode);
+    ensureNavModeToggle();
+}
+
+function getNavMode() {
+    try {
+        const stored = localStorage.getItem(NAV_MODE_KEY);
+        return stored === 'topbar' ? 'topbar' : 'sidebar';
+    } catch (e) {
+        return 'sidebar';
+    }
+}
+
+function setNavMode(mode) {
+    try {
+        localStorage.setItem(NAV_MODE_KEY, mode);
+    } catch (e) {
+    }
+}
+
+function applyNavMode(mode) {
+    document.body.classList.toggle('mode-topbar', mode === 'topbar');
+    document.body.classList.toggle('mode-sidebar', mode !== 'topbar');
+}
+
+function ensureNavModeToggle() {
+    let toggle = document.querySelector('.sidebar-toggle');
+    if (!toggle) {
+        toggle = document.createElement('button');
+        toggle.className = 'sidebar-toggle';
+        toggle.type = 'button';
+        toggle.innerHTML = '<svg width="18" height="12" viewBox="0 0 18 12" fill="none" xmlns="http://www.w3.org/2000/svg"><rect width="18" height="2" rx="1" fill="currentColor"/><rect y="5" width="18" height="2" rx="1" fill="currentColor"/><rect y="10" width="18" height="2" rx="1" fill="currentColor"/></svg>';
+        document.body.appendChild(toggle);
+    }
+
+    const updateLabel = () => {
+        const mode = getNavMode();
+        toggle.setAttribute('aria-label', mode === 'topbar' ? 'Switch to sidebar mode' : 'Switch to top menu mode');
+        toggle.title = mode === 'topbar' ? 'Sidebar mode' : 'Top menu mode';
+    };
+
+    updateLabel();
+
+    if (!toggle.dataset.navModeBound) {
+        toggle.dataset.navModeBound = '1';
+        toggle.addEventListener('click', () => {
+            const current = getNavMode();
+            const next = current === 'topbar' ? 'sidebar' : 'topbar';
+            setNavMode(next);
+            applyNavMode(next);
+            updateLabel();
+        });
+    }
+}
