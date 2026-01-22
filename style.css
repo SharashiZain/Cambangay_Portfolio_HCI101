@@ -3,6 +3,10 @@ html, body {
     margin: 0;
 }
 
+:root {
+    --topbar-height: 64px;
+}
+
 * {
     box-sizing: border-box;
     margin: 0;
@@ -28,7 +32,7 @@ body {
 
 .mode-topbar .sidebar {
     width: 100%;
-    height: 64px;
+    height: var(--topbar-height);
     position: fixed;
     top: 0;
     left: 0;
@@ -52,15 +56,18 @@ body {
     margin: 0;
 }
 
-.mode-topbar .profile-header .name,
+.name-short { display: none; }
+.name-full { display: inline; }
+
+.mode-topbar .name-short { display: inline; }
+.mode-topbar .name-full { display: none; }
+
 .mode-topbar .profile-header .student-id {
     display: none;
 }
 
 .mode-topbar .avatar {
-    width: 40px;
-    height: 40px;
-    margin: 0;
+    display: none;
 }
 
 .mode-topbar .sidebar-bottom,
@@ -86,9 +93,16 @@ body {
 
 .mode-topbar .main-content {
     width: 100%;
+    /* Put the scroll container BELOW the fixed topbar */
+    margin-top: var(--topbar-height);
+    height: calc(100vh - var(--topbar-height));
+    padding: 0;
+}
+
+.mode-topbar .content-inner {
     max-width: 1100px;
     margin: 0 auto;
-    padding-top: 88px;
+    padding: 2rem 2.5rem;
 }
 
 .sidebar-toggle {
@@ -106,6 +120,92 @@ body {
     justify-content: center;
     z-index: 1200;
     cursor: pointer;
+}
+
+/* Sidebar hide/show */
+.sidebar {
+    transition: width 220ms ease, padding 220ms ease, transform 220ms ease, opacity 220ms ease;
+}
+
+body.sidebar-hidden .sidebar {
+    width: 0;
+    padding: 0;
+    overflow: hidden;
+    opacity: 0;
+    transform: translateX(-12px);
+}
+
+body.sidebar-hidden .main-content {
+    padding-left: 1.25rem;
+    padding-right: 1.25rem;
+}
+
+/* Mobile drawer (shown when tapping the toggle on small screens) */
+.mobile-drawer {
+    position: fixed;
+    inset: 0;
+    background: rgba(17, 24, 39, 0.45);
+    display: none;
+    z-index: 1300;
+}
+
+body.drawer-open .mobile-drawer {
+    display: block;
+}
+
+.mobile-drawer-panel {
+    width: 290px;
+    max-width: 86vw;
+    height: 100%;
+    background: linear-gradient(180deg, #111827, #1f2937);
+    color: #f9fafb;
+    padding: 1rem 1rem 1.25rem;
+    box-shadow: 0 18px 45px rgba(2, 6, 23, 0.35);
+    transform: translateX(-100%);
+    transition: transform 220ms cubic-bezier(.2,.9,.2,1);
+}
+
+body.drawer-open .mobile-drawer-panel {
+    transform: translateX(0);
+}
+
+.mobile-drawer-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.75rem;
+    padding-bottom: 0.75rem;
+    border-bottom: 1px solid rgba(148, 163, 184, 0.22);
+    margin-bottom: 0.75rem;
+}
+
+.mobile-brand {
+    font-weight: 800;
+    letter-spacing: 0.01em;
+}
+
+.mobile-drawer-close {
+    width: 40px;
+    height: 40px;
+    border-radius: 10px;
+    border: 1px solid rgba(148, 163, 184, 0.25);
+    background: rgba(255, 255, 255, 0.06);
+    color: #ffffff;
+    font-size: 1.35rem;
+    line-height: 1;
+    cursor: pointer;
+}
+
+.mobile-drawer-nav {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+@media (min-width: 841px) {
+    .mobile-drawer {
+        display: none !important;
+    }
 }
 
 @media (max-width: 540px) {
@@ -236,11 +336,16 @@ body {
 .main-content {
     flex: 1;
     padding: 2rem 2.5rem;
-    max-width: 1000px;
-    margin: 0 auto;
+    width: 100%;
     height: 100%;
     overflow: auto; /* scroll inside main area instead of the page */
     -webkit-overflow-scrolling: touch;
+}
+
+.content-inner {
+    width: 100%;
+    max-width: 1000px;
+    margin: 0 auto;
 }
 
 .section {
@@ -249,6 +354,40 @@ body {
 
 .section.visible {
     display: block;
+}
+
+/* Single-page scroll mode (Home + Personal Information in one page) */
+body.single-page .section {
+    display: block;
+}
+
+body.single-page .main-content {
+    scroll-behavior: smooth;
+    scroll-snap-type: y proximity;
+    scroll-padding-top: 0;
+    padding: 0;
+}
+
+body.single-page .content-inner {
+    padding: 2rem 2.5rem;
+}
+
+body.single-page .section {
+    scroll-snap-align: start;
+    scroll-snap-stop: normal;
+    min-height: 100%;
+    padding-bottom: 1.5rem;
+}
+
+/* Single-page snap fixes for TOPBAR mode only (keeps sidebar mode unchanged) */
+body.single-page.mode-topbar .main-content {
+    scroll-padding-top: 0;
+}
+
+body.single-page.mode-topbar .section {
+    /* Ensure the Home section fully fills the view so the next section doesn't peek */
+    min-height: calc(100vh - var(--topbar-height));
+    min-height: calc(100dvh - var(--topbar-height));
 }
 
 .section h2 {
@@ -323,6 +462,60 @@ body {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
     gap: 0.9rem 1.5rem;
+}
+
+.info-subsection {
+    margin-top: 1.6rem;
+}
+
+.info-subsection h3 {
+    font-size: 1.15rem;
+    margin-bottom: 0.35rem;
+}
+
+.subsection-description {
+    color: #4b5563;
+    margin-bottom: 0.8rem;
+    line-height: 1.5;
+}
+
+.cards-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 1rem;
+}
+
+.cards-grid .card h4 {
+    margin-bottom: 0.35rem;
+    font-size: 1rem;
+}
+
+.chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.55rem;
+}
+
+.chip {
+    display: inline-flex;
+    align-items: center;
+    padding: 0.45rem 0.7rem;
+    border-radius: 999px;
+    background: rgba(251, 191, 36, 0.22);
+    border: 1px solid rgba(245, 158, 11, 0.35);
+    color: #111827;
+    font-weight: 600;
+    font-size: 0.9rem;
+}
+
+.goal-project .goal-title {
+    margin-bottom: 0.35rem;
+}
+
+.goal-project .goal-desc {
+    margin-bottom: 0;
+    color: #374151;
+    line-height: 1.6;
 }
 
 .info-item {
@@ -911,11 +1104,11 @@ textarea {
         height: 140px;
     }
 
-    .app-container {
+    .mode-sidebar .app-container {
         flex-direction: column;
     }
 
-    .sidebar {
+    .mode-sidebar .sidebar {
         width: 100%;
         height: auto;
         position: static;
@@ -926,7 +1119,7 @@ textarea {
         padding: 1rem 1.25rem;
     }
 
-    .profile-header {
+    .mode-sidebar .profile-header {
         display: flex;
         align-items: center;
         gap: 0.75rem;
@@ -934,31 +1127,39 @@ textarea {
         margin-bottom: 0;
     }
 
-    .avatar {
+    .mode-sidebar .avatar {
         margin: 0;
         width: 64px;
         height: 64px;
     }
 
-    .name {
+    .mode-sidebar .name {
         font-size: 1rem;
     }
 
-    .student-id {
+    .mode-sidebar .student-id {
         font-size: 0.85rem;
     }
 
-    .nav {
+    .mode-sidebar .nav {
         flex-direction: row;
         gap: 0.35rem;
     }
 
-    .nav-link {
+    .mode-sidebar .nav-link {
         padding: 0.5rem 0.65rem;
         font-size: 0.9rem;
     }
 
     .main-content {
+        padding: 1.2rem 1.4rem 2rem;
+    }
+
+    .mode-topbar .main-content {
+        padding: 0;
+    }
+
+    .mode-topbar .content-inner {
         padding: 1.2rem 1.4rem 2rem;
     }
 
@@ -984,52 +1185,60 @@ textarea {
 }
 
 @media (max-width: 540px) {
-    .sidebar {
+    .mode-sidebar .sidebar {
         flex-direction: column;
         align-items: flex-start;
         padding: 0.8rem 1rem;
     }
 
-    .profile-header {
+    .mode-sidebar .profile-header {
         width: 100%;
         justify-content: flex-start;
     }
 
-    .avatar {
+    .mode-sidebar .avatar {
         width: 56px;
         height: 56px;
     }
 
-    .name {
+    .mode-sidebar .name {
         font-size: 0.95rem;
     }
 
-    .student-id {
+    .mode-sidebar .student-id {
         font-size: 0.8rem;
     }
 
-    .nav {
+    .mode-sidebar .nav {
         width: 100%;
         flex-direction: row;
         gap: 0.3rem;
     }
 
-    .nav-link {
+    .mode-sidebar .nav-link {
         flex: 1;
         text-align: center;
         padding: 0.5rem 0.3rem;
         font-size: 0.85rem;
     }
 
-    .sidebar-bottom {
+    .mode-sidebar .sidebar-bottom {
         width: 100%;
     }
 
-    .settings-link {
+    .mode-sidebar .settings-link {
         text-align: center;
     }
 
     .main-content {
+        padding: 1rem 1rem 1.5rem;
+    }
+
+    .mode-topbar .main-content {
+        padding: 0;
+    }
+
+    .mode-topbar .content-inner {
         padding: 1rem 1rem 1.5rem;
     }
 
