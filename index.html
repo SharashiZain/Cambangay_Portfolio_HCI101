@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Kahlil - HCI101 Portfolio</title>
+    <link rel="stylesheet" href="modern-style.css" />
+</head>
+<body class="modern-layout">
+    <!-- Top Navigation Bar -->
+    <header class="topnav">
+        <a href="#homeSection" class="topnav-brand">Kahlil</a>
+        <nav class="topnav-links">
+            <a class="topnav-link active" href="#homeSection">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+                Home
+            </a>
+            <a class="topnav-link" href="#infoSection">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+                About
+            </a>
+            <a class="topnav-link" href="#skillsSection">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg>
+                Skills
+            </a>
+        </nav>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main-scroll">
+        <!-- Hero / Home Section -->
+        <section id="homeSection" class="hero-section">
+            <div class="hero-split-bg"></div>
+            <div class="hero-content">
+                <span class="hero-greeting">HEY! I AM</span>
+                <h1 class="hero-name">Kahlil Jay Cambangay</h1>
+                <p class="hero-tagline">I'm a <span class="typewriter" id="typewriter"></span><span class="cursor">|</span></p>
+            </div>
+        </section>
+
+        <!-- About / Personal Information Section -->
+        <section id="infoSection" class="content-section">
+            <div class="section-inner">
+                <h2 class="section-title">About Me</h2>
+                <div class="about-layout">
+                    <div class="about-avatar">
+                        <img src="AVATAR/CambangayProfile.jpg" alt="Profile" />
+                        <div class="about-socials">
+                            <a href="https://github.com/" target="_blank" rel="noopener" class="social-btn" aria-label="GitHub">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+                            </a>
+                            <a href="https://www.facebook.com/Sharashi1424/" target="_blank" rel="noopener" class="social-btn" aria-label="Facebook">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="about-details">
+                        <div class="info-grid">
+                            <div class="info-item">
+                                <span class="label">Full Name</span>
+                                <span class="value" id="infoName"></span>
+                            </div>
+                            <div class="info-item">
+                                <span class="label">Student ID</span>
+                                <span class="value" id="infoId"></span>
+                            </div>
+                            <div class="info-item">
+                                <span class="label">Course</span>
+                                <span class="value" id="infoCourse"></span>
+                            </div>
+                            <div class="info-item">
+                                <span class="label">College</span>
+                                <span class="value" id="infoCollege"></span>
+                            </div>
+                            <div class="info-item">
+                                <span class="label">Email</span>
+                                <span class="value" id="infoEmail"></span>
+                            </div>
+                            <div class="info-item">
+                                <span class="label">Contact Number</span>
+                                <span class="value" id="infoContact"></span>
+                            </div>
+                            <div class="info-item full">
+                                <span class="label">Address</span>
+                                <span class="value" id="infoAddress"></span>
+                            </div>
+                            <div class="info-item full">
+                                <span class="label">About Me</span>
+                                <span class="value" id="infoBio"></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Skills Section -->
+        <section id="skillsSection" class="content-section alt-bg">
+            <div class="section-inner">
+                <h2 class="section-title">Skills & Expertise</h2>
+                <div class="cards-grid" id="skillsGrid" aria-label="Skills and expertise"></div>
+
+                <h3 class="subsection-title">Hobbies & Interests</h3>
+                <div class="chips" id="hobbiesList" aria-label="Hobbies and interests"></div>
+
+                <h3 class="subsection-title">Projects</h3>
+                <div class="goal-card">
+                    <h4 class="goal-title" id="goalProjectTitle"></h4>
+                    <p class="goal-desc" id="goalProjectDesc"></p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <script src="home.js"></script>
+    <script src="info.js"></script>
+    <script src="single-page-nav.js"></script>
+    <script src="nav-mode.js"></script>
+</body>
+</html>
