@@ -24,7 +24,18 @@ const personalInfo = {
     goalProject: {
         title: "Triangular Converged Network Using Raspberry Pi 5 Routers with Integrated Data, Voice, and Video Traffic",
         description: "Design and deploy a converged network using three Raspberry Pi 5 routers interconnected in a triangular topology, providing data, voice, and video services through wired and wireless LANs, with VoIP via Asterisk, and dynamic routing via FRR/OSPF."
-    }
+    },
+    projects: [
+        {
+            title: "Triangular Converged Network Using Raspberry Pi 5 Routers with Integrated Data, Voice, and Video Traffic",
+            description: "Design and deploy a converged network using three Raspberry Pi 5 routers interconnected in a triangular topology, providing data, voice, and video services through wired and wireless LANs, with VoIP via Asterisk, and dynamic routing via FRR/OSPF."
+        },
+        {
+            title: "AI-Powered EduPredict: Student Performance Analytics System",
+            description: "An AI-powered analytics system that predicts and analyzes student academic performance using machine learning models, providing educators with actionable insights to improve learning outcomes.",
+            github: "https://github.com/Vivekchary2607/AI-Powered-EduPredict-Student-Performance-Analytics-System"
+        }
+    ]
 };
 
 function fillPersonalInfo() {
@@ -74,12 +85,37 @@ function renderHobbies() {
 }
 
 function renderGoalProject() {
-    const titleEl = document.getElementById("goalProjectTitle");
-    const descEl = document.getElementById("goalProjectDesc");
-    if (!titleEl || !descEl) return;
+    const container = document.getElementById("projectsList");
+    if (!container) return;
 
-    titleEl.textContent = personalInfo.goalProject?.title || "";
-    descEl.textContent = personalInfo.goalProject?.description || "";
+    container.innerHTML = "";
+    (personalInfo.projects || []).forEach((project) => {
+        const card = document.createElement("div");
+        card.className = "goal-card";
+
+        const title = document.createElement("h4");
+        title.className = "goal-title";
+        title.textContent = project.title || "";
+
+        const desc = document.createElement("p");
+        desc.className = "goal-desc";
+        desc.textContent = project.description || "";
+
+        card.appendChild(title);
+        card.appendChild(desc);
+
+        if (project.github) {
+            const link = document.createElement("a");
+            link.href = project.github;
+            link.target = "_blank";
+            link.rel = "noopener noreferrer";
+            link.className = "project-link";
+            link.textContent = "View on GitHub";
+            card.appendChild(link);
+        }
+
+        container.appendChild(card);
+    });
 }
 
 window.addEventListener("DOMContentLoaded", () => {
