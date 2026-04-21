@@ -21,10 +21,6 @@ const personalInfo = {
         "Watching Anime",
         "Listening to Music",
     ],
-    goalProject: {
-        title: "Triangular Converged Network Using Raspberry Pi 5 Routers with Integrated Data, Voice, and Video Traffic",
-        description: "Design and deploy a converged network using three Raspberry Pi 5 routers interconnected in a triangular topology, providing data, voice, and video services through wired and wireless LANs, with VoIP via Asterisk, and dynamic routing via FRR/OSPF."
-    },
     projects: [
         {
             title: "Triangular Converged Network Using Raspberry Pi 5 Routers with Integrated Data, Voice, and Video Traffic",
